@@ -1,6 +1,9 @@
+// src/components/GalleryPage.jsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
+import ModalImage from 'react-modal-image';
 
 const GalleryPage = () => {
     // נתיבי התמונות מסודרים לפי קטגוריות
@@ -70,7 +73,7 @@ const GalleryPage = () => {
                 ברוכים הבאים לגלריה שלנו! כאן תוכלו למצוא הצצה מרגשת אל מסעו של בית הכנסת, מתהליך הבנייה המרגש ועד למראה הנוכחי שמשמש בית לקהילה חמה ותוססת.
             </p>
 
-            <div className="container mx-auto space-y-24"> {/* הגדלת רווחים בין קטגוריות */}
+            <div className="container mx-auto space-y-24">
                 {categories.map((category, index) => {
                     const [ref, inView] = useInView({
                         triggerOnce: true,
@@ -105,17 +108,15 @@ const GalleryPage = () => {
                                 {category.images.map((src, imgIndex) => (
                                     <div
                                         key={imgIndex}
-                                        className={`gallery-card p-2 rounded-2xl transition-all duration-300 ease-in-out transform hover:scale-[1.05] ${cardShadowClasses} ${cardBackgroundClasses} ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                                        className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] ${cardShadowClasses} ${cardBackgroundClasses} ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                                             }`}
                                         style={{ transitionDelay: `${imgIndex * 50}ms` }}
                                     >
-                                        <img
-                                            className={`gallery-image w-full object-cover rounded-xl ${imageSizeClass}`}
-                                            src={src}
+                                        <ModalImage
+                                            small={src}
+                                            large={src}
                                             alt={`${category.title} - תמונה ${imgIndex + 1}`}
-                                            onError={(e) => {
-                                                e.target.src = "https://placehold.co/1024x768/e5e7eb/4b5563?text=תמונה+לא+נמצאה";
-                                            }}
+                                            className={`gallery-image w-full object-cover rounded-xl ${imageSizeClass}`}
                                         />
                                     </div>
                                 ))}
@@ -128,25 +129,25 @@ const GalleryPage = () => {
             {/* כפתור חזרה לדף הבית עם אפקט החץ */}
             <div className="text-center mt-12">
                 <Link
-          to="/"
-          className="inline-flex items-center bg-yellow-600 text-white font-sans py-3 px-8 rounded-full hover:bg-yellow-700 transition-colors duration-200 group select-none"
-        >
-          חזרה לדף הבית
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-180"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
-        </Link>
+                    to="/"
+                    className="inline-flex items-center bg-yellow-600 text-white font-sans py-3 px-8 rounded-full hover:bg-yellow-700 transition-colors duration-200 group select-none"
+                >
+                    חזרה לדף הבית
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-180"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                    </svg>
+                </Link>
             </div>
         </div>
     );
