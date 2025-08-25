@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import PrayerTimesSection from './components/PrayerTimesSection';
 import HistorySection from './components/HistorySection';
 import BottomSection from './components/BottomSection';
+// import HistoryPage from './components/HistoryPage';
 import HistoryPage from './components/HistoryPage';
 import PeoplePage from './components/PeoplePage';
 import ChessedCenterPage from './components/ChessedCenterPage';

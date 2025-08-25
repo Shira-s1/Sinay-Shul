@@ -2,11 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const getImageUrl = (name) => {
-    // This helper function assumes the images are in the correct directory.
-    return new URL(`../images/${name}`, import.meta.url).href;
-};
-
 // SVG icons replacements for react-icons
 const PhoneIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -40,12 +35,12 @@ const BottomSection = () => {
                 <div className="flex flex-col items-end text-right">
                     <h3 className="text-xl font-bold text-white mb-6">גלריה</h3>
                     <div className="grid grid-cols-3 gap-2 mb-4 w-full">
-                        <img src={getImageUrl("background.jpg")} alt="גלריה 1" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
-                        <img src={getImageUrl("hut.png")} alt="גלריה 2" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
-                        <img src={getImageUrl("bracha.png")} alt="גלריה 3" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
-                        <img src={getImageUrl("stage.jpg")} alt="גלריה 4" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
-                        <img src={getImageUrl("ArtOtTheCovenant1.jpg")} alt="גלריה 5" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
-                        <img src={getImageUrl("inMiddleOfBuild6.png")} alt="גלריה 6" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
+                        <img src="/images/background.jpg" alt="גלריה 1" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
+                        <img src="/images/hut.png" alt="גלריה 2" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
+                        <img src="/images/bracha.png" alt="גלריה 3" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
+                        <img src="/images/stage.jpg" alt="גלריה 4" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
+                        <img src="/images/ArtOtTheCovenant1.jpg" alt="גלריה 5" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
+                        <img src="/images/inMiddleOfBuild6.png" alt="גלריה 6" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
                     </div>
                     <Link
                         to="/gallery"

@@ -1,77 +1,114 @@
-// src/components/GalleryPage.jsx
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import ModalImage from 'react-modal-image';
+import { motion } from "framer-motion";
+
+// מפה של שמות הקבצים שהוזכרו בקוד המקורי לנתיבים המוחלטים שלהם בתיקיית ה-public.
+// כדי שהקוד יעבוד כראוי, יש לוודא שכל הקבצים נמצאים בתיקייה 'public/images' בפרויקט שלך.
+const imageMap = {
+    // קטגוריה: "תהליך הבנייה: לידת הקהילה"
+    "hut.png": "/images/hut.png",
+    "hut2.png": "/images/hut2.png",
+    "hut3.png": "/images/hut3.png",
+    "hut4.png": "/images/hut4.png",
+    "inMiddleOfBuild.png": "/images/inMiddleOfBuild.png",
+    "inMiddleOfBuild2.png": "/images/inMiddleOfBuild2.png",
+    "inMiddleOfBuild3.png": "/images/inMiddleOfBuild3.png",
+    "inMiddleOfBuild4.png": "/images/inMiddleOfBuild4.png",
+    "inMiddleOfBuild5.png": "/images/inMiddleOfBuild5.png",
+    "inMiddleOfBuild6.png": "/images/inMiddleOfBuild6.png",
+    "entarance_old.png": "/images/entarance_old.png",
+    "entarance_old1.png": "/images/entarance_old1.png",
+    "startBuild.png": "/images/startBuild.png",
+    
+    // קטגוריה: "חנוכת הבית"
+    "hanucatBait.png": "/images/hanucatBait.png",
+    "hanuchatBait.png": "/images/hanuchatBait.png",
+    
+    // קטגוריה: "זיכרון עבר: איך התחלנו"
+    "inside_old1.png": "/images/inside_old1.png",
+    "inside_old2.png": "/images/inside_old2.png",
+    "inside_old3.png": "/images/inside_old3.png",
+    "inside_old4.png": "/images/inside_old4.png",
+    "inside_old5.png": "/images/inside_old5.png",
+    "inside_old6.png": "/images/inside_old6.png",
+    "inside_old7.png": "/images/inside_old7.png",
+    "inside_old8.png": "/images/inside_old8.png",
+    "inside_old9.png": "/images/inside_old9.png",
+    "inside_old10.png": "/images/inside_old10.png",
+    "oldWithBooks.png": "/images/oldWithBooks.png",
+    
+    // קטגוריה: "היום שלנו: קהילה פורחת"
+    "ArtOtTheCovenant.png": "/images/ArtOtTheCovenant.png",
+    "ArtOtTheCovenant1.jpg": "/images/ArtOtTheCovenant1.jpg",
+    "ArtOtTheCovenant2.jpg": "/images/ArtOtTheCovenant2.jpg",
+    "background.jpg": "/images/background.jpg",
+    "board.png": "/images/board.png",
+    "bracha.png": "/images/bracha.png",
+    "stage.jpg": "/images/stage.jpg",
+    "windows.png": "/images/windows.png",
+};
+
+const categories = [
+    {
+        title: "תהליך הבנייה: לידת הקהילה",
+        images: [
+            "hut.png", "hut2.png", "hut3.png", "hut4.png", "inMiddleOfBuild.png", "inMiddleOfBuild2.png",
+            "inMiddleOfBuild3.png", "inMiddleOfBuild4.png", "inMiddleOfBuild5.png", "inMiddleOfBuild6.png",
+            "entarance_old.png", "entarance_old1.png", "startBuild.png",
+        ],
+    },
+    {
+        title: "חנוכת הבית",
+        images: [
+            "hanucatBait.png", "hanuchatBait.png",
+        ],
+    },
+    {
+        title: "זיכרון עבר: איך התחלנו",
+        images: [
+            "inside_old1.png", "inside_old2.png", "inside_old3.png", "inside_old4.png", "inside_old5.png",
+            "inside_old6.png", "inside_old7.png", "inside_old8.png", "inside_old9.png", "inside_old10.png",
+            "oldWithBooks.png",
+        ],
+    },
+    {
+        title: "היום שלנו: קהילה פורחת",
+        images: [
+            "ArtOtTheCovenant.png", "ArtOtTheCovenant1.jpg", "ArtOtTheCovenant2.jpg", "background.jpg",
+            "board.png", "bracha.png", "stage.jpg", "windows.png",
+        ],
+    },
+];
 
 const GalleryPage = () => {
-    // נתיבי התמונות מסודרים לפי קטגוריות
-    const categories = [
-        {
-            title: "תהליך הבנייה: לידת הקהילה",
-            images: [
-                "src/images/hut.png",
-                "src/images/hut2.png",
-                "src/images/hut3.png",
-                "src/images/hut4.png",
-                "src/images/inMiddleOfBuild.png",
-                "src/images/inMiddleOfBuild2.png",
-                "src/images/inMiddleOfBuild3.png",
-                "src/images/inMiddleOfBuild4.png",
-                "src/images/inMiddleOfBuild5.png",
-                "src/images/inMiddleOfBuild6.png",
-                "src/images/entarance_old.png",
-                "src/images/entarance_old1.png",
-                "src/images/startBuild.png",
-            ],
-        },
-        {
-            title: "חנוכת הבית",
-            images: [
-                "src/images/hanucatBait.png",
-                "src/images/hanuchatBait.png",
-            ],
-        },
-        {
-            title: "זיכרון עבר: איך התחלנו",
-            images: [
-                "src/images/inside_old1.png",
-                "src/images/inside_old2.png",
-                "src/images/inside_old3.png",
-                "src/images/inside_old4.png",
-                "src/images/inside_old5.png",
-                "src/images/inside_old6.png",
-                "src/images/inside_old7.png",
-                "src/images/inside_old8.png",
-                "src/images/inside_old9.png",
-                "src/images/inside_old10.png",
-                "src/images/oldWithBooks.png",
-            ],
-        },
-        {
-            title: "היום שלנו: קהילה פורחת",
-            images: [
-                "src/images/ArtOtTheCovenant.png",
-                "src/images/ArtOtTheCovenant1.jpg",
-                "src/images/ArtOtTheCovenant2.jpg",
-                "src/images/background.jpg",
-                "src/images/board.png",
-                "src/images/bracha.png",
-                "src/images/stage.jpg",
-                "src/images/windows.png",
-            ],
-        },
-    ];
+    const [modalImageSrc, setModalImageSrc] = useState(null);
+
+    const openModal = (src) => {
+        setModalImageSrc(src);
+    };
+
+    const closeModal = () => {
+        setModalImageSrc(null);
+    };
 
     return (
-        <div className="bg-gray-100 text-gray-800 min-h-screen flex flex-col items-center p-8 text-center font-['Inter']">
-            <h1 className="text-5xl font-extrabold text-yellow-700 mb-4">
+        <div className="bg-gray-100 text-gray-800 min-h-screen flex flex-col items-center p-8 pt-12 text-center font-['Inter']">
+            <motion.h1 
+                className="text-5xl font-extrabold text-yellow-700 mb-4 tracking-tight"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+            >
                 גלריית בית הכנסת
-            </h1>
-            <p className="max-w-3xl mx-auto text-center mb-12 px-4 md:px-0 text-lg md:text-xl text-gray-700 leading-relaxed tracking-wide font-light">
+            </motion.h1>
+            <motion.p 
+                className="max-w-3xl mx-auto text-center mb-12 px-4 md:px-0 text-lg md:text-xl text-gray-700 leading-relaxed tracking-wide font-light"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+            >
                 ברוכים הבאים לגלריה שלנו! כאן תוכלו למצוא הצצה מרגשת אל מסעו של בית הכנסת, מתהליך הבנייה המרגש ועד למראה הנוכחי שמשמש בית לקהילה חמה ותוססת.
-            </p>
+            </motion.p>
 
             <div className="container mx-auto space-y-24">
                 {categories.map((category, index) => {
@@ -101,38 +138,79 @@ const GalleryPage = () => {
 
                     return (
                         <div key={index} className={`category-section ${sectionClasses}`} ref={ref}>
-                            <h2 className={specialTitleClasses}>
+                            <motion.h2 
+                                className={specialTitleClasses}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={inView ? { opacity: 1, y: 0 } : {}}
+                                transition={{ duration: 0.5 }}
+                            >
                                 {category.title}
-                            </h2>
-                            <div className={`grid gap-8 ${gridLayoutClasses}`}>
-                                {category.images.map((src, imgIndex) => (
-                                    <div
+                            </motion.h2>
+                            <motion.div 
+                                className={`grid gap-8 ${gridLayoutClasses} w-full`}
+                                initial="hidden"
+                                animate={inView ? "visible" : "hidden"}
+                                variants={{
+                                    visible: { transition: { staggerChildren: 0.07 } },
+                                    hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+                                }}
+                            >
+                                {category.images.map((imageKey, imgIndex) => (
+                                    <motion.div
                                         key={imgIndex}
-                                        className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] ${cardShadowClasses} ${cardBackgroundClasses} ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                                            }`}
+                                        className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] ${cardShadowClasses} ${cardBackgroundClasses}`}
+                                        variants={{
+                                            visible: { opacity: 1, scale: 1, y: 0 },
+                                            hidden: { opacity: 0, scale: 0.8, y: 20 },
+                                        }}
                                         style={{ transitionDelay: `${imgIndex * 50}ms` }}
                                     >
-                                        <ModalImage
-                                            small={src}
-                                            large={src}
+                                        <img
+                                            src={imageMap[imageKey]}
                                             alt={`${category.title} - תמונה ${imgIndex + 1}`}
-                                            className={`gallery-image w-full object-cover rounded-xl ${imageSizeClass}`}
+                                            className={`gallery-image w-full object-cover rounded-xl cursor-pointer ${imageSizeClass}`}
+                                            onClick={() => openModal(imageMap[imageKey])}
+                                            // Fallback for images not found
+                                            onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/808080/FFFFFF?text=תמונה+לא+נמצאה"; }}
                                         />
-                                    </div>
+                                    </motion.div>
                                 ))}
-                            </div>
+                            </motion.div>
                         </div>
                     );
                 })}
             </div>
 
-            {/* כפתור חזרה לדף הבית עם אפקט החץ */}
+            {/* מודאל פשוט להצגת תמונה גדולה */}
+            {modalImageSrc && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50"
+                    onClick={closeModal}
+                >
+                    <div className="relative max-w-5xl max-h-full">
+                        <img
+                            src={modalImageSrc}
+                            alt="Modal View"
+                            className="max-h-[90vh] max-w-full rounded-lg shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                        <button
+                            onClick={closeModal}
+                            className="absolute top-4 right-4 text-white text-4xl leading-none font-extralight opacity-75 hover:opacity-100 transition-opacity"
+                        >
+                            &times;
+                        </button>
+                    </div>
+                </div>
+            )}
+            
+            {/* כפתור חזרה, ללא פונקציונליות ניווט מכיוון שאין Router */}
             <div className="text-center mt-12">
-                <Link
-                    to="/"
+                 <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="inline-flex items-center bg-yellow-600 text-white font-sans py-3 px-8 rounded-full hover:bg-yellow-700 transition-colors duration-200 group select-none"
                 >
-                    חזרה לדף הבית
+                    חזרה למעלה
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-180"
@@ -147,7 +225,7 @@ const GalleryPage = () => {
                             d="M14 5l7 7m0 0l-7 7m7-7H3"
                         />
                     </svg>
-                </Link>
+                </button>
             </div>
         </div>
     );
