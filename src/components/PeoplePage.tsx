@@ -1,41 +1,45 @@
-// src/pages/PeoplePage.tsx
-
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, Variants } from "framer-motion";
+import { UserCircle2 } from 'lucide-react';
 
-// נתוני האנשים, עם נתיבי תמונה בתיקיית public
-const people = [
+// הגדרת הטיפוסים לרכיב PersonCardProps
+interface PersonCardProps {
+  name: string;
+  role: string;
+  description: string;
+  image?: string;
+  icon?: React.ReactNode;
+  type: "image" | "icon";
+  delay: number;
+}
+
+// נתוני האנשים, עם טיפוסים מוגדרים היטב
+const people: Omit<PersonCardProps, 'delay'>[] = [
   {
     name: "הרב יוסף ורון",
     role: "רב בית הכנסת",
     description: "הרב מנהיג את קהילת בית הכנסת מזה שני עשורים, ומספק הדרכה רוחנית, שיעורים מעמיקים וליווי אישי לחברי הקהילה. הוא ידוע באישיותו החמה וביכולתו לחבר בין כל קצוות האוכלוסייה.",
     image: "/images/HaravVaron.png",
+    type: "image",
   },
   {
     name: "ר' אריה גינדי",
     role: "גבאי בית הכנסת",
     description: "ר' אריה אחראי על ניהול התפילות, הקפדה על סדרי בית הכנסת והנחיית המתפללים. הוא דואג שהתפילות יתקיימו באווירה מכובדת ומרגשת.",
-    image: "/images/windows.png",
+    icon: <UserCircle2 size={192} className="text-gray-400" />,
+    type: "icon",
   },
   {
     name: "ר' אליהו טחן",
     role: "חזן בית הכנסת",
     description: "ר' אליהו הוא החזן של בית הכנסת, קולו המיוחד והמרגש מוסיף לאווירת התפילה ומחבר את המתפללים לרוחניות של המקום. הוא מבצע את התפילות והברכות בצורה מרגשת ומרוממת.",
-    image: "/images/oldWithBooks.png",
+    icon: <UserCircle2 size={192} className="text-gray-400" />,
+    type: "icon",
   },
 ];
 
-// קומפוננטת כרטיס אדם
-interface PersonCardProps {
-  name: string;
-  role: string;
-  description: string;
-  image: string;
-  delay: number;
-}
-
-const PersonCard: React.FC<PersonCardProps> = ({ name, role, description, image, delay }) => {
+const PersonCard: React.FC<PersonCardProps> = ({ name, role, description, image, icon, type, delay }) => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const cardVariants: Variants = {
@@ -59,17 +63,26 @@ const PersonCard: React.FC<PersonCardProps> = ({ name, role, description, image,
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
     >
-      <img
-        src={image}
-        alt={name}
-        className="w-48 h-48 object-cover rounded-full mb-6 border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:border-yellow-600"
-        onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          console.error(`Image failed to load: ${target.src}`);
-          target.onerror = null; // מונע לולאה אינסופית
-          target.src = "https://placehold.co/192x192/808080/FFFFFF?text=תמונה";
-        }}
-      />
+      {type === "image" ? (
+        <img
+          src={image}
+          alt={name}
+          className="w-48 h-48 object-cover rounded-full mb-6 border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:border-yellow-600"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            console.error(`Image failed to load: ${target.src}`);
+            target.onerror = null; // prevents infinite loop
+            target.src = "https://placehold.co/192x192/808080/FFFFFF?text=תמונה";
+          }}
+        />
+      ) : (
+        <div 
+          className="w-48 h-48 flex items-center justify-center rounded-full mb-6 border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:border-yellow-600"
+          aria-label={name}
+        >
+          {icon}
+        </div>
+      )}
       <h3 className="text-3xl font-extrabold text-gray-900 mb-2">{name}</h3>
       <p className="text-yellow-700 text-xl font-semibold mb-4">{role}</p>
       <p className="text-gray-700 leading-relaxed flex-grow text-lg">{description}</p>

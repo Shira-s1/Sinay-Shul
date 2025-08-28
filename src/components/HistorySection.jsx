@@ -115,7 +115,7 @@ import { motion } from "framer-motion";
 // נתיבים לתמונות ישירות מתיקיית ה-public
 const imageUrls = {
     stage: "/images/stage.jpg",
-    ark: "/images/ArtOtTheCovenant.png",
+    ark: "/images/artOtTheCovenant.png",
 };
 
 const HistorySection = () => {

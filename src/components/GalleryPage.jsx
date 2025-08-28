@@ -53,9 +53,9 @@ const imageMap = {
     "sookot2.png": "/images/sookot2.png",
     
     // Category: "Our Day: A Thriving Community"
-    "ArtOtTheCovenant.png": "/images/ArtOtTheCovenant.png",
-    "ArtOtTheCovenant1.jpg": "/images/ArtOtTheCovenant1.jpg",
-    "ArtOtTheCovenant2.jpg": "/images/ArtOtTheCovenant2.jpg",
+    "artOtTheCovenant.png": "/images/artOtTheCovenant.png",
+    "artOtTheCovenant1.jpg": "/images/artOtTheCovenant1.jpg",
+    "artOtTheCovenant2.jpg": "/images/artOtTheCovenant2.jpg",
     "background.jpg": "/images/background.jpg",
     "board.png": "/images/board.png",
     "bracha.png": "/images/bracha.png",
@@ -94,7 +94,7 @@ const categories = [
     {
         title: "היום",
         images: [
-            "ArtOtTheCovenant.png", "ArtOtTheCovenant1.jpg", "ArtOtTheCovenant2.jpg", "background.jpg",
+            "artOtTheCovenant.png", "artOtTheCovenant1.jpg", "artOtTheCovenant2.jpg", "background.jpg",
             "board.png", "bracha.png", "stage.jpg", "windows.png",
         ],
     },
