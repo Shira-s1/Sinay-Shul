@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion } from "framer-motion";
 
-// מפה של שמות הקבצים שהוזכרו בקוד המקורי לנתיבים המוחלטים שלהם בתיקיית ה-public.
-// כדי שהקוד יעבוד כראוי, יש לוודא שכל הקבצים נמצאים בתיקייה 'public/images' בפרויקט שלך.
+// Map of image file names to their absolute paths in the public folder.
+// For the code to work, ensure all files are in the 'public/images' directory of your project.
 const imageMap = {
-    // קטגוריה: "תהליך הבנייה: לידת הקהילה"
+    // Category: "The Construction Process: The Birth of the Community"
     "hut.png": "/images/hut.png",
     "hut2.png": "/images/hut2.png",
     "hut3.png": "/images/hut3.png",
@@ -20,11 +20,11 @@ const imageMap = {
     "entarance_old1.png": "/images/entarance_old1.png",
     "startBuild.png": "/images/startBuild.png",
     
-    // קטגוריה: "חנוכת הבית"
+    // Category: "Dedication Ceremony"
     "hanucatBait.png": "/images/hanucatBait.png",
     "hanuchatBait.png": "/images/hanuchatBait.png",
     
-    // קטגוריה: "זיכרון עבר: איך התחלנו"
+    // Category: "A Past Memory: How We Started"
     "inside_old1.png": "/images/inside_old1.png",
     "inside_old2.png": "/images/inside_old2.png",
     "inside_old3.png": "/images/inside_old3.png",
@@ -37,7 +37,7 @@ const imageMap = {
     "inside_old10.png": "/images/inside_old10.png",
     "oldWithBooks.png": "/images/oldWithBooks.png",
     
-    // קטגוריה: "היום שלנו: קהילה פורחת"
+    // Category: "Our Day: A Thriving Community"
     "ArtOtTheCovenant.png": "/images/ArtOtTheCovenant.png",
     "ArtOtTheCovenant1.jpg": "/images/ArtOtTheCovenant1.jpg",
     "ArtOtTheCovenant2.jpg": "/images/ArtOtTheCovenant2.jpg",
@@ -50,7 +50,11 @@ const imageMap = {
 
 const categories = [
     {
-        title: "תהליך הבנייה: לידת הקהילה",
+        title: "הכל",
+        images: Object.keys(imageMap),
+    },
+    {
+        title: "תהליך הבנייה",
         images: [
             "hut.png", "hut2.png", "hut3.png", "hut4.png", "inMiddleOfBuild.png", "inMiddleOfBuild2.png",
             "inMiddleOfBuild3.png", "inMiddleOfBuild4.png", "inMiddleOfBuild5.png", "inMiddleOfBuild6.png",
@@ -64,7 +68,7 @@ const categories = [
         ],
     },
     {
-        title: "זיכרון עבר: איך התחלנו",
+        title: "זיכרון עבר",
         images: [
             "inside_old1.png", "inside_old2.png", "inside_old3.png", "inside_old4.png", "inside_old5.png",
             "inside_old6.png", "inside_old7.png", "inside_old8.png", "inside_old9.png", "inside_old10.png",
@@ -72,7 +76,7 @@ const categories = [
         ],
     },
     {
-        title: "היום שלנו: קהילה פורחת",
+        title: "היום",
         images: [
             "ArtOtTheCovenant.png", "ArtOtTheCovenant1.jpg", "ArtOtTheCovenant2.jpg", "background.jpg",
             "board.png", "bracha.png", "stage.jpg", "windows.png",
@@ -82,6 +86,10 @@ const categories = [
 
 const GalleryPage = () => {
     const [modalImageSrc, setModalImageSrc] = useState(null);
+    const [activeCategory, setActiveCategory] = useState("הכל");
+    
+    // Create a ref for each category to enable scrolling and visibility tracking
+    const refs = useRef({});
 
     const openModal = (src) => {
         setModalImageSrc(src);
@@ -91,101 +99,171 @@ const GalleryPage = () => {
         setModalImageSrc(null);
     };
 
+    const scrollToCategory = (title) => {
+        const categoryTitle = title === "הכל" ? "top" : title;
+        if (refs.current[categoryTitle]) {
+            refs.current[categoryTitle].scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+            // Update the active category state when a button is clicked
+            setActiveCategory(title);
+        }
+    };
+
+    // Use a custom hook to track which category is in view
+    const useActiveCategory = (categoryTitle) => {
+        const { ref, inView } = useInView({
+            threshold: 0.5, // Trigger when 50% of the element is in view
+            rootMargin: '-50% 0px -50% 0px', // Adjusts the viewport for intersection detection
+        });
+
+        useEffect(() => {
+            if (inView) {
+                setActiveCategory(categoryTitle);
+            }
+        }, [inView, categoryTitle]);
+
+        return ref;
+    };
+
+    const topRef = useActiveCategory("הכל");
+    const constructionRef = useActiveCategory("תהליך הבנייה");
+    const dedicationRef = useActiveCategory("חנוכת הבית");
+    const memoryRef = useActiveCategory("זיכרון עבר");
+    const todayRef = useActiveCategory("היום");
+
+    // Assign refs to the refs.current object for the scroll function
+    useEffect(() => {
+        refs.current['top'] = document.getElementById('top-section');
+        refs.current['תהליך הבנייה'] = document.getElementById('תהליך הבנייה');
+        refs.current['חנוכת הבית'] = document.getElementById('חנוכת הבית');
+        refs.current['זיכרון עבר'] = document.getElementById('זיכרון עבר');
+        refs.current['היום'] = document.getElementById('היום');
+    }, []);
+
     return (
-        <div className="bg-gray-100 text-gray-800 min-h-screen flex flex-col items-center p-8 pt-12 text-center font-['Inter']">
+        <div className="bg-gray-100 text-gray-800 min-h-screen flex flex-col items-center p-4 md:p-8 pt-12 text-center font-['Inter']" dir="rtl">
             <motion.h1 
-                className="text-5xl font-extrabold text-yellow-700 mb-4 tracking-tight"
+                className="text-4xl sm:text-5xl font-extrabold text-yellow-700 mb-4 tracking-tight"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
+                id="top-section" // Add an ID for easy scrolling
+                ref={topRef}
             >
                 גלריית בית הכנסת
             </motion.h1>
             <motion.p 
-                className="max-w-3xl mx-auto text-center mb-12 px-4 md:px-0 text-lg md:text-xl text-gray-700 leading-relaxed tracking-wide font-light"
+                className="max-w-3xl mx-auto text-center mb-8 px-4 md:px-0 text-lg md:text-xl text-gray-700 leading-relaxed tracking-wide font-light"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
             >
                 ברוכים הבאים לגלריה שלנו! כאן תוכלו למצוא הצצה מרגשת אל מסעו של בית הכנסת, מתהליך הבנייה המרגש ועד למראה הנוכחי שמשמש בית לקהילה חמה ותוססת.
             </motion.p>
+            
+            {/* Sticky navigation that scrolls to the relevant section */}
+            <div className="flex flex-wrap justify-center mb-8 md:mb-12 sticky top-0 bg-gray-100 z-10 py-4 w-full border-b-2 border-gray-200">
+                {categories.map((category, index) => (
+                    <button
+                        key={index}
+                        onClick={() => scrollToCategory(category.title)}
+                        className={`
+                            px-4 py-2 mx-1 my-1 rounded-full text-sm font-semibold transition-all duration-300
+                            ${activeCategory === category.title
+                                ? 'bg-yellow-600 text-white shadow-lg'
+                                : 'bg-gray-200 text-gray-700 hover:bg-yellow-600 hover:text-white hover:shadow-lg'
+                            }
+                        `}
+                    >
+                        {category.title}
+                    </button>
+                ))}
+            </div>
 
+            {/* Gallery sections */}
             <div className="container mx-auto space-y-24">
-                {categories.map((category, index) => {
-                    const [ref, inView] = useInView({
-                        triggerOnce: true,
-                        threshold: 0.1,
-                    });
-
+                {categories.slice(1).map((category, index) => { // Skip the "All" category for display
                     const isSpecialCategory = category.title === "חנוכת הבית";
-                    const gridLayoutClasses = isSpecialCategory
-                        ? "grid-cols-1 md:grid-cols-2"
-                        : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
-                    const imageSizeClass = isSpecialCategory ? "h-96" : "h-64";
-                    const sectionClasses = isSpecialCategory
-                        ? "flex flex-col items-center"
-                        : "";
-                    const cardShadowClasses = isSpecialCategory
-                        ? "shadow-2xl hover:shadow-yellow-400"
-                        : "shadow-lg hover:shadow-2xl";
-                    const cardBackgroundClasses = isSpecialCategory
-                        ? "bg-gradient-to-br from-yellow-50 to-yellow-100 border-4 border-yellow-500"
-                        : "bg-white border-2 border-gray-200";
+                    const cardShadowClasses = isSpecialCategory ? "shadow-2xl hover:shadow-yellow-400" : "shadow-lg hover:shadow-2xl";
+                    const cardBackgroundClasses = isSpecialCategory ? "bg-gradient-to-br from-yellow-50 to-yellow-100 border-4 border-yellow-500" : "bg-white border-2 border-gray-200";
+                    const specialTitleClasses = isSpecialCategory ? "bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-amber-700 border-b-4 border-yellow-600 pb-3 mb-12 font-extrabold text-4xl tracking-tight" : "text-yellow-700 font-bold text-3xl mb-10 tracking-wide border-b-2 border-yellow-400 pb-2";
 
-                    const specialTitleClasses = isSpecialCategory
-                        ? "bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-amber-700 border-b-4 border-yellow-600 pb-3 mb-12 font-extrabold text-4xl tracking-tight"
-                        : "text-yellow-700 font-bold text-3xl mb-10 tracking-wide border-b-2 border-yellow-400 pb-2";
+                    let categoryRef;
+                    switch (category.title) {
+                        case 'תהליך הבנייה':
+                            categoryRef = constructionRef;
+                            break;
+                        case 'חנוכת הבית':
+                            categoryRef = dedicationRef;
+                            break;
+                        case 'זיכרון עבר':
+                            categoryRef = memoryRef;
+                            break;
+                        case 'היום':
+                            categoryRef = todayRef;
+                            break;
+                        default:
+                            categoryRef = null;
+                    }
 
                     return (
-                        <div key={index} className={`category-section ${sectionClasses}`} ref={ref}>
+                        <div key={index} className="category-section" id={category.title} ref={categoryRef}>
                             <motion.h2 
                                 className={specialTitleClasses}
                                 initial={{ opacity: 0, y: -10 }}
-                                animate={inView ? { opacity: 1, y: 0 } : {}}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
                             >
                                 {category.title}
                             </motion.h2>
                             <motion.div 
-                                className={`grid gap-8 ${gridLayoutClasses} w-full`}
+                                className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full"
                                 initial="hidden"
-                                animate={inView ? "visible" : "hidden"}
+                                animate="visible"
                                 variants={{
                                     visible: { transition: { staggerChildren: 0.07 } },
                                     hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
                                 }}
                             >
-                                {category.images.map((imageKey, imgIndex) => (
-                                    <motion.div
-                                        key={imgIndex}
-                                        className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] ${cardShadowClasses} ${cardBackgroundClasses}`}
-                                        variants={{
-                                            visible: { opacity: 1, scale: 1, y: 0 },
-                                            hidden: { opacity: 0, scale: 0.8, y: 20 },
-                                        }}
-                                        style={{ transitionDelay: `${imgIndex * 50}ms` }}
-                                    >
-                                        <img
-                                            src={imageMap[imageKey]}
-                                            alt={`${category.title} - תמונה ${imgIndex + 1}`}
-                                            className={`gallery-image w-full object-cover rounded-xl cursor-pointer ${imageSizeClass}`}
-                                            onClick={() => openModal(imageMap[imageKey])}
-                                            // Fallback for images not found
-                                            onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/808080/FFFFFF?text=תמונה+לא+נמצאה"; }}
-                                        />
-                                    </motion.div>
-                                ))}
+                                {category.images.map((imageKey, imgIndex) => {
+                                    const imagePath = imageMap[imageKey];
+                                    return (
+                                        <motion.div
+                                            key={imageKey}
+                                            className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] ${cardShadowClasses} ${cardBackgroundClasses}`}
+                                            variants={{
+                                                visible: { opacity: 1, scale: 1, y: 0 },
+                                                hidden: { opacity: 0, scale: 0.8, y: 20 },
+                                            }}
+                                            style={{ transitionDelay: `${imgIndex * 0.05}s` }}
+                                        >
+                                            <img
+                                                src={imagePath}
+                                                alt={`${category.title} - תמונה ${imgIndex + 1}`}
+                                                className="gallery-image w-full h-48 object-cover rounded-xl cursor-pointer"
+                                                onClick={() => openModal(imagePath)}
+                                                onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/808080/FFFFFF?text=תמונה+לא+נמצאה"; }}
+                                            />
+                                        </motion.div>
+                                    );
+                                })}
                             </motion.div>
                         </div>
                     );
                 })}
             </div>
 
-            {/* מודאל פשוט להצגת תמונה גדולה */}
+            {/* Modal for large image view */}
             {modalImageSrc && (
-                <div
+                <motion.div
                     className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50"
                     onClick={closeModal}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                 >
                     <div className="relative max-w-5xl max-h-full">
                         <img
@@ -201,32 +279,8 @@ const GalleryPage = () => {
                             &times;
                         </button>
                     </div>
-                </div>
+                </motion.div>
             )}
-            
-            {/* כפתור חזרה, ללא פונקציונליות ניווט מכיוון שאין Router */}
-            <div className="text-center mt-12">
-                 <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="inline-flex items-center bg-yellow-600 text-white font-sans py-3 px-8 rounded-full hover:bg-yellow-700 transition-colors duration-200 group select-none"
-                >
-                    חזרה למעלה
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-180"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                    </svg>
-                </button>
-            </div>
         </div>
     );
 };
