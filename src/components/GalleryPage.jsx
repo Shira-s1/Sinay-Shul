@@ -16,15 +16,24 @@ const imageMap = {
     "inMiddleOfBuild4.png": "/images/inMiddleOfBuild4.png",
     "inMiddleOfBuild5.png": "/images/inMiddleOfBuild5.png",
     "inMiddleOfBuild6.png": "/images/inMiddleOfBuild6.png",
+    "inMiddleOfBuild7.png": "/images/inMiddleOfBuild7.png",
+    "inMiddleOfBuild8.png": "/images/inMiddleOfBuild8.png",
+    "inMiddleOfBuild9.png": "/images/inMiddleOfBuild9.png",
     "entarance_old.png": "/images/entarance_old.png",
     "entarance_old1.png": "/images/entarance_old1.png",
     "startBuild.png": "/images/startBuild.png",
+    "entarance_old2.png": "/images/entarance_old2.png",
+    "entarance_old3.png": "/images/entarance_old3.png",
     
     // Category: "Dedication Ceremony"
     "hanucatBait.png": "/images/hanucatBait.png",
     "hanuchatBait.png": "/images/hanuchatBait.png",
+    "hanuchatBait1.png": "/images/hanuchatBait1.png",
+    "hanuchatBait2.png": "/images/hanuchatBait2.png",
+    "hanuchatBait3.png": "/images/hanuchatBait3.png",
     
     // Category: "A Past Memory: How We Started"
+    "info.png": "/images/info.png",
     "inside_old1.png": "/images/inside_old1.png",
     "inside_old2.png": "/images/inside_old2.png",
     "inside_old3.png": "/images/inside_old3.png",
@@ -36,6 +45,12 @@ const imageMap = {
     "inside_old9.png": "/images/inside_old9.png",
     "inside_old10.png": "/images/inside_old10.png",
     "oldWithBooks.png": "/images/oldWithBooks.png",
+    "actions1.png": "/images/actions1.png",
+    "actions2.png": "/images/actions2.png",
+    "actions3.png": "/images/actions3.png",
+    "barMitzva1.png": "/images/barMitzva.png",
+    "sookot1.png": "/images/sookot1.png",
+    "sookot2.png": "/images/sookot2.png",
     
     // Category: "Our Day: A Thriving Community"
     "ArtOtTheCovenant.png": "/images/ArtOtTheCovenant.png",
@@ -58,21 +73,22 @@ const categories = [
         images: [
             "hut.png", "hut2.png", "hut3.png", "hut4.png", "inMiddleOfBuild.png", "inMiddleOfBuild2.png",
             "inMiddleOfBuild3.png", "inMiddleOfBuild4.png", "inMiddleOfBuild5.png", "inMiddleOfBuild6.png",
-            "entarance_old.png", "entarance_old1.png", "startBuild.png",
+            "inMiddleOfBuild7.png", "inMiddleOfBuild8.png", "inMiddleOfBuild9.png", "entarance_old.png", "entarance_old1.png", "startBuild.png",
+            "entarance_old2.png", "entarance_old3.png",
         ],
     },
     {
         title: "חנוכת הבית",
         images: [
-            "hanucatBait.png", "hanuchatBait.png",
+            "hanucatBait.png", "hanuchatBait.png", "hanuchatBait1.png", "hanuchatBait2.png", "hanuchatBait3.png",
         ],
     },
     {
         title: "זיכרון עבר",
         images: [
-            "inside_old1.png", "inside_old2.png", "inside_old3.png", "inside_old4.png", "inside_old5.png",
+            "info.png", "inside_old1.png", "inside_old2.png", "inside_old3.png", "inside_old4.png", "inside_old5.png",
             "inside_old6.png", "inside_old7.png", "inside_old8.png", "inside_old9.png", "inside_old10.png",
-            "oldWithBooks.png",
+            "oldWithBooks.png", "actions1.png", "actions2.png", "actions3.png", "barMitzva1.png", "sookot1.png", "sookot2.png",
         ],
     },
     {
@@ -208,6 +224,86 @@ const GalleryPage = () => {
                             categoryRef = null;
                     }
 
+                    // Check if this is the 'זיכרון עבר' category to render the special image block
+                    if (category.title === "זיכרון עבר") {
+                         // We will render the special `info.png` image first, and then the rest of the images.
+                        const specialImage = "info.png";
+                        const filteredImages = category.images.filter(img => img !== specialImage);
+
+                        return (
+                            <div key={index} className="category-section" id={category.title} ref={categoryRef}>
+                                <motion.h2 
+                                    className={specialTitleClasses}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                >
+                                    {category.title}
+                                </motion.h2>
+
+                                {/* Special centered block for the "info.png" image */}
+                                <motion.div
+                                    className="flex justify-center items-center flex-col md:flex-row p-6 md:p-8 mb-12 bg-white rounded-3xl shadow-xl border-2 border-yellow-500 max-w-4xl mx-auto"
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.8, delay: 0.3 }}
+                                >
+                                    <div className="w-full md:w-1/2 flex justify-center p-4">
+                                        <img
+                                            src={imageMap[specialImage]}
+                                            alt="A Past Memory"
+                                            className="w-full h-auto object-contain rounded-2xl cursor-pointer shadow-lg"
+                                            onClick={() => openModal(imageMap[specialImage])}
+                                            onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/808080/FFFFFF?text=תמונה+לא+נמצאה"; }}
+                                        />
+                                    </div>
+                                    <div className="w-full md:w-1/2 md:pr-8 text-center md:text-right mt-4 md:mt-0">
+                                        <h3 className="text-2xl md:text-3xl font-bold text-yellow-800 mb-2">זיכרון עבר: כך התחלנו</h3>
+                                        <p className="text-lg text-gray-600 leading-relaxed font-light">
+                                            תמונה זו מסמלת את הרגעים הראשונים והצנועים שלנו, את הצעד הראשון במסע הארוך. היא מזכירה לנו את העבר ממנו צמחנו ועד כמה התקדמנו.
+                                        </p>
+                                    </div>
+                                </motion.div>
+                               
+                                {/* The rest of the images in the category will be displayed in a centered flexbox grid */}
+                                <motion.div 
+                                    className="flex flex-wrap justify-center gap-4 md:gap-6 w-full"
+                                    initial="hidden"
+                                    animate="visible"
+                                    variants={{
+                                        visible: { transition: { staggerChildren: 0.07 } },
+                                        hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+                                    }}
+                                >
+                                    {filteredImages.map((imageKey, imgIndex) => {
+                                        const imagePath = imageMap[imageKey];
+                                        return (
+                                            <motion.div
+                                                key={imageKey}
+                                                // Added flex-item classes for responsive sizing
+                                                className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] shadow-lg hover:shadow-2xl bg-white border-2 border-gray-200 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5`}
+                                                variants={{
+                                                    visible: { opacity: 1, scale: 1, y: 0 },
+                                                    hidden: { opacity: 0, scale: 0.8, y: 20 },
+                                                }}
+                                                style={{ transitionDelay: `${imgIndex * 0.05}s` }}
+                                            >
+                                                <img
+                                                    src={imagePath}
+                                                    alt={`${category.title} - תמונה ${imgIndex + 1}`}
+                                                    className="gallery-image w-full h-48 object-cover rounded-xl cursor-pointer"
+                                                    onClick={() => openModal(imagePath)}
+                                                    onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/808080/FFFFFF?text=תמונה+לא+נמצאה"; }}
+                                                />
+                                            </motion.div>
+                                        );
+                                    })}
+                                </motion.div>
+                            </div>
+                        );
+                    }
+
+                    // For all other categories, keep the original rendering logic
                     return (
                         <div key={index} className="category-section" id={category.title} ref={categoryRef}>
                             <motion.h2 
@@ -218,8 +314,9 @@ const GalleryPage = () => {
                             >
                                 {category.title}
                             </motion.h2>
+                            {/* Changed to flexbox for centering images in the last row */}
                             <motion.div 
-                                className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full"
+                                className="flex flex-wrap justify-center gap-4 md:gap-6 w-full"
                                 initial="hidden"
                                 animate="visible"
                                 variants={{
@@ -229,10 +326,13 @@ const GalleryPage = () => {
                             >
                                 {category.images.map((imageKey, imgIndex) => {
                                     const imagePath = imageMap[imageKey];
+                                    const cardClasses = isSpecialCategory ? "bg-gradient-to-br from-yellow-50 to-yellow-100 border-4 border-yellow-500" : "bg-white border-2 border-gray-200";
+                                    const shadowClasses = isSpecialCategory ? "shadow-2xl hover:shadow-yellow-400" : "shadow-lg hover:shadow-2xl";
                                     return (
                                         <motion.div
                                             key={imageKey}
-                                            className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] ${cardShadowClasses} ${cardBackgroundClasses}`}
+                                            // Added flex-item classes for responsive sizing
+                                            className={`gallery-card p-2 rounded-2xl transition-all duration-75 ease-in-out transform hover:scale-[1.05] ${shadowClasses} ${cardClasses} w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5`}
                                             variants={{
                                                 visible: { opacity: 1, scale: 1, y: 0 },
                                                 hidden: { opacity: 0, scale: 0.8, y: 20 },
