@@ -39,7 +39,7 @@ const BottomSection = () => {
                         <img src="/images/hut.png" alt="גלריה 2" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
                         <img src="/images/bracha.png" alt="גלריה 3" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
                         <img src="/images/stage.jpg" alt="גלריה 4" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
-                        <img src="/images/artOtTheCovenant1.jpg" alt="גלריה 5" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
+                        <img src="/images/ArtOtTheCovenant1.jpg" alt="גלריה 5" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
                         <img src="/images/inMiddleOfBuild6.png" alt="גלריה 6" className="w-full aspect-square object-cover rounded-md shadow-lg border-4 border-transparent transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:border-yellow-600" />
                     </div>
                     <Link
