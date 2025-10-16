@@ -1,8 +1,12 @@
 #root {
-  max-width: 1280px;
+  /* מנצל את כל רוחב המסך במובייל */
+  width: 100%; 
+  max-width: none; /* מבטל את המגבלה הקבועה של 1280px */
   margin: 0 auto;
-  padding: 2rem;
+  /* ריווח קטן יותר למובייל */
+  padding: 1rem; 
   text-align: center;
+  box-sizing: border-box; /* חשוב לוודא שריווח לא יגרום לחריגה ברוחב */
 }
 
 .logo {
@@ -39,4 +43,11 @@
 
 .read-the-docs {
   color: #888;
+}
+@media (min-width: 768px) {
+  #root {
+    /* מחזיר את המגבלה הקבועה ואת הריווח הגדול רק במסכים רחבים */
+    max-width: 1280px; 
+    padding: 2rem;
+  }
 }

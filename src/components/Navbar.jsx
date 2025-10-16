@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
@@ -15,14 +14,14 @@ const localScrollTo = (element, options) => {
 // Inline SVG for FaBars (hamburger icon)
 const FaBars = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-8 h-8">
-        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
     </svg>
 );
 
 // Inline SVG for FaTimes (close icon)
 const FaTimes = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-8 h-8">
-        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
     </svg>
 );
 
@@ -73,9 +72,13 @@ const Navbar = () => {
         }
     };
 
-    const linkClasses = "block px-5 py-2 text-yellow-200 font-bold rounded-full transition-all duration-300 ease-in-out " +
-        "hover:bg-yellow-600 hover:text-white hover:scale-110 hover:shadow-lg " +
-        "text-lg md:text-xl md:mr-4 cursor-pointer text-center w-full md:w-auto";
+    // קלאסים מעודכנים: 
+    // במובייל (ללא קידומת): py-2, px-4, text-base
+    // בדסקטופ (עם קידומת md): py-3, px-5, text-xl
+    const linkClasses = "block px-4 py-2 text-yellow-200 font-bold rounded-full transition-all duration-300 ease-in-out " +
+        "hover:bg-yellow-600 hover:text-white hover:scale-[1.05] hover:shadow-lg " +
+        "text-base md:text-xl md:mr-4 cursor-pointer text-center w-full md:w-auto " +
+        "md:py-3 md:px-5 md:hover:scale-110";
 
     return (
         <nav className="bg-gray-900 p-4 shadow-xl relative z-50">
@@ -89,13 +92,13 @@ const Navbar = () => {
 
                 {/* Navigation links container */}
                 <div className={`
-                    ${isOpen ? 'block' : 'hidden'} 
-                    w-full md:flex md:w-auto 
-                    mt-4 md:mt-0 md:justify-center md:items-center 
-                    flex-col md:flex-row 
-                    bg-gray-800/90 md:bg-transparent rounded-lg md:rounded-none
-                    p-4 md:p-0
-                `}>
+                    ${isOpen ? 'block' : 'hidden'} 
+                    w-full md:flex md:w-auto 
+                    mt-4 md:mt-0 md:justify-center md:items-center 
+                    flex-col md:flex-row 
+                    bg-gray-800 md:bg-transparent rounded-lg md:rounded-none
+                    p-4 md:p-0
+                `}>
                     {/* בית */}
                     <button
                         onClick={() => handleScrollToSection('home-section')}

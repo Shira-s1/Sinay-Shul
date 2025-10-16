@@ -77,14 +77,14 @@ function App() {
                   </div>
                   {/* Sample Event Card 2 */}
                   <div className="bg-white p-6 rounded-lg shadow-md text-right">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">שיעור תורה שבועי לנשים</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">שיעור תורה שבועי </h3>
                     <p className="text-yellow-700 text-lg mb-4">יום שלישי | 19:30</p>
                     <p className="text-gray-700 leading-relaxed">שיעור תורה מרתק ומרענן עם הרבנית שרה כהן, בנושא פרשת השבוע והלכה למעשה. בואי להתחזק וללמוד באווירה נעימה.</p>
                   </div>
                   {/* Sample Event Card 3 */}
                   <div className="bg-white p-6 rounded-lg shadow-md text-right">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">ל"ג בעומר - מדורה קהילתית</h3>
-                    <p className="text-yellow-700 text-lg mb-4">מוצ"ש, י"ז באייר | 21:00</p>
+                    <p className="text-yellow-700 text-lg mb-4"> י"ז באייר | 21:00</p>
                     <p className="text-gray-700 leading-relaxed">חוגגים יחד את ל"ג בעומר עם מדורה גדולה, שירים, ופעילויות לילדים. בואו להצטרף לחגיגה קהילתית שמחה!</p>
                   </div>
                 </div>
