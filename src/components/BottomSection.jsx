@@ -36,12 +36,12 @@ const BottomSection = () => {
                 <div className="flex flex-col items-end text-right">
                     <div className="grid grid-cols-3 gap-2 w-full mb-4">
                         {[
-                            '/images/background.jpg',
-                            '/images/hut.png',
-                            '/images/bracha.png',
-                            '/images/stage.jpg',
-                            '/images/inside_old3.png',
-                            '/images/inMiddleOfBuild6.png',
+                            '/images/background.webp',
+                            '/images/hut.webp',
+                            '/images/bracha.webp',
+                            '/images/stage.webp',
+                            '/images/inside_old3.webp',
+                            '/images/old1.webp',
                         ].map((src, i) => (
                             <img
                                 key={i}
@@ -87,7 +87,7 @@ const BottomSection = () => {
                         {[
                             { label: 'בית', to: '/#home-section' },
                             { label: 'אודות', to: '/chessed' },
-                            { label: 'אירועים ופעילויות', to: '/#events' },
+                            // { label: 'אירועים ופעילויות', to: '/#events' },
                             { label: 'גלריה', to: '/gallery' },
                         ].map((link, i) => (
                             <li key={i}>

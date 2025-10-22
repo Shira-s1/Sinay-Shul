@@ -6,59 +6,59 @@ import { useInView } from 'react-intersection-observer';
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp, X, MapPin } from 'lucide-react';
 
-// IMPORTANT: For this to run successfully, ensure all files (hut.png, hanucatBait.png, etc.) 
-// are available in the '/public/images' directory of your project.
 
 const imageMap = {
-    "hut.png": "/images/hut.png",
-    "hut2.png": "/images/hut2.png",
-    "hut3.png": "/images/hut3.png",
-    "hut4.png": "/images/hut4.png",
-    "inMiddleOfBuild.png": "/images/inMiddleOfBuild.png",
-    "inMiddleOfBuild2.png": "/images/inMiddleOfBuild2.png",
-    "inMiddleOfBuild3.png": "/images/inMiddleOfBuild3.png",
-    "inMiddleOfBuild4.png": "/images/inMiddleOfBuild4.png",
-    "inMiddleOfBuild5.png": "/images/inMiddleOfBuild5.png",
-    "inMiddleOfBuild6.png": "/images/inMiddleOfBuild6.png",
-    "inMiddleOfBuild7.png": "/images/inMiddleOfBuild7.png",
-    "inMiddleOfBuild8.png": "/images/inMiddleOfBuild8.png",
-    "inMiddleOfBuild9.png": "/images/inMiddleOfBuild9.png",
-    "entarance_old.png": "/images/entarance_old.png",
-    "entarance_old1.png": "/images/entarance_old1.png",
-    "startBuild.png": "/images/startBuild.png",
-    "entarance_old2.png": "/images/entarance_old2.png",
-    "entarance_old3.png": "/images/entarance_old3.png",
-    "hanucatBait.png": "/images/hanucatBait.png",
-    "hanuchatBait.png": "/images/hanuchatBait.png",
-    "hanuchatBait1.png": "/images/hanuchatBait1.png",
-    "hanuchatBait2.png": "/images/hanuchatBait2.png",
-    "hanuchatBait3.png": "/images/hanuchatBait3.png",
-    "info.png": "/images/info.png",
-    "inside_old1.png": "/images/inside_old1.png",
-    "inside_old2.png": "/images/inside_old2.png",
-    "inside_old3.png": "/images/inside_old3.png",
-    "inside_old4.png": "/images/inside_old4.png",
-    "inside_old5.png": "/images/inside_old5.png",
-    "inside_old6.png": "/images/inside_old6.png",
-    "inside_old7.png": "/images/inside_old7.png",
-    "inside_old8.png": "/images/inside_old8.png",
-    "inside_old9.png": "/images/inside_old9.png",
-    "inside_old10.png": "/images/inside_old10.png",
-    "oldWithBooks.png": "/images/oldWithBooks.png",
-    "actions1.png": "/images/actions1.png",
-    "actions2.png": "/images/actions2.png",
-    "actions3.png": "/images/actions3.png",
-    "barMitzva1.png": "/images/barMitzva.png",
-    "sookot1.png": "/images/sookot1.png",
-    "sookot2.png": "/images/sookot2.png",
-    "artOtTheCovenant.png": "/images/artOtTheCovenant.png",
-    "artOtTheCovenant1.jpg": "/images/artOtTheCovenant1.jpg",
-    "artOtTheCovenant2.jpg": "/images/artOtTheCovenant2.jpg",
-    "background.jpg": "/images/background.jpg",
-    "board.png": "/images/board.png",
-    "bracha.png": "/images/bracha.png",
-    "stage.jpg": "/images/stage.jpg",
-    "windows.png": "/images/windows.png",
+    "hut.webp": "/images/hut.webp",
+    "hut2.webp": "/images/hut2.webp",
+    "hut3.webp": "/images/hut3.webp",
+    "hut4.webp": "/images/hut4.webp",
+    "inMiddleOfBuild.webp": "/images/inMiddleOfBuild.webp",
+    "inMiddleOfBuild2.webp": "/images/inMiddleOfBuild2.webp",
+    "inMiddleOfBuild3.webp": "/images/inMiddleOfBuild3.webp",
+    "inMiddleOfBuild4.webp": "/images/inMiddleOfBuild4.webp",
+    "inMiddleOfBuild5.webp": "/images/inMiddleOfBuild5.webp",
+    "inMiddleOfBuild6.webp": "/images/inMiddleOfBuild6.webp",
+    "inMiddleOfBuild7.webp": "/images/inMiddleOfBuild7.webp",
+    "inMiddleOfBuild8.webp": "/images/inMiddleOfBuild8.webp",
+    "inMiddleOfBuild9.webp": "/images/inMiddleOfBuild9.webp",
+    "entarance_old.webp": "/images/entarance_old.webp",
+    "entarance_old1.webp": "/images/entarance_old1.webp",
+    "startBuild.webp": "/images/startBuild.webp",
+    "entarance_old2.webp": "/images/entarance_old2.webp",
+    "entarance_old3.webp": "/images/entarance_old3.webp",
+    "hanucatBait.webp": "/images/hanucatBait.webp",
+    "hanuchatBait.webp": "/images/hanuchatBait.webp",
+    "hanuchatBait1.webp": "/images/hanuchatBait1.webp",
+    "hanuchatBait2.webp": "/images/hanuchatBait2.webp",
+    "hanuchatBait3.webp": "/images/hanuchatBait3.webp",
+    "info.webp": "/images/info.webp",
+    "inside_old1.webp": "/images/inside_old1.webp",
+    "inside_old2.webp": "/images/inside_old2.webp",
+    "inside_old3.webp": "/images/inside_old3.webp",
+    "inside_old4.webp": "/images/inside_old4.webp",
+    "inside_old5.webp": "/images/inside_old5.webp",
+    "inside_old6.webp": "/images/inside_old6.webp",
+    "inside_old7.webp": "/images/inside_old7.webp",
+    "inside_old8.webp": "/images/inside_old8.webp",
+    "inside_old9.webp": "/images/inside_old9.webp",
+    "inside_old10.webp": "/images/inside_old10.webp",
+    "oldWithBooks.webp": "/images/oldWithBooks.webp",
+    "actions1.webp": "/images/actions1.webp",
+    "actions2.webp": "/images/actions2.webp",
+    "actions3.webp": "/images/actions3.webp",
+    "barMitzva1.webp": "/images/barMitzva.webp",
+    "sookot1.webp": "/images/sookot1.webp",
+    "sookot2.webp": "/images/sookot2.webp",
+    "artOtTheCovenant.webp": "/images/artOtTheCovenant.webp",
+    "artOtTheCovenant1.webp": "/images/artOtTheCovenant1.webp",
+    "artOtTheCovenant2.webp": "/images/artOtTheCovenant2.webp",
+    "background.webp": "/images/background.webp",
+    "board.webp": "/images/board.webp",
+    "bracha.webp": "/images/bracha.webp",
+    "stage.webp": "/images/stage.webp",
+    "windows.webp": "/images/windows.webp",
+    "old1.webp": "/images/old1.webp",
+    "old2.webp": "/images/old2.webp",
 };
 
 const categories = [
@@ -70,34 +70,36 @@ const categories = [
         title: "תהליך הבנייה",
         description: "מבקתה צנועה ועד למבנה מרשים: המסע המרגש של הקמת בית הכנסת, אבן אחר אבן. עבודת כפיים ואמונה חזקה.",
         images: [
-            "hut.png", "hut2.png", "hut3.png", "hut4.png", "inMiddleOfBuild.png", "inMiddleOfBuild2.png",
-            "inMiddleOfBuild3.png", "inMiddleOfBuild4.png", "inMiddleOfBuild5.png", "inMiddleOfBuild6.png",
-            "inMiddleOfBuild7.png", "inMiddleOfBuild8.png", "inMiddleOfBuild9.png", "entarance_old.png", "entarance_old1.png", "startBuild.png",
-            "entarance_old2.png", "entarance_old3.png",
+            "hut.webp", "hut2.webp", "hut3.webp", "hut4.webp", "inMiddleOfBuild.webp", "inMiddleOfBuild2.webp",
+            "inMiddleOfBuild3.webp", "inMiddleOfBuild4.webp", "inMiddleOfBuild5.webp", "inMiddleOfBuild6.webp",
+            "inMiddleOfBuild7.webp", "inMiddleOfBuild8.webp", "inMiddleOfBuild9.webp", "entarance_old.webp", "entarance_old1.webp", "startBuild.webp",
+            "entarance_old2.webp", "entarance_old3.webp",
         ],
     },
     {
         title: "חנוכת הבית",
         description: "תיעוד חגיגי ומרגש מהטקס המכונן שבו נחנך בית הכנסת והפך באופן רשמי לבית קהילה. רגעים בלתי נשכחים.",
         images: [
-            "hanucatBait.png", "hanuchatBait.png", "hanuchatBait1.png", "hanuchatBait2.png", "hanuchatBait3.png",
+            "hanucatBait.webp", "hanuchatBait.webp", "hanuchatBait1.webp", "hanuchatBait2.webp", "hanuchatBait3.webp",
         ],
     },
     {
         title: "זיכרון עבר",
         description: "הצצה נוסטלגית לתמונות היסטוריות: כיצד הכל התחיל והרגעים המכוננים של הקהילה בראשית דרכה, כולל אירועים מיוחדים.",
         images: [
-            "info.png", "inside_old1.png", "inside_old2.png", "inside_old3.png", "inside_old4.png", "inside_old5.png",
-            "inside_old6.png", "inside_old7.png", "inside_old8.png", "inside_old9.png", "inside_old10.png",
-            "oldWithBooks.png", "actions1.png", "actions2.png", "actions3.png", "barMitzva1.png", "sookot1.png", "sookot2.png",
+             "inside_old1.webp", "inside_old2.webp", "inside_old3.webp", "inside_old4.webp", "inside_old5.webp",
+            "inside_old6.webp", "inside_old7.webp", "inside_old8.webp", "inside_old9.webp", "inside_old10.webp",
+             "old1.webp",    "old2.webp",
+            "oldWithBooks.webp", "actions1.webp", "actions2.webp", "actions3.webp", "barMitzva1.webp", "sookot1.webp", "sookot2.webp",
+           
         ],
     },
     {
         title: "היום",
         description: "חיי הקהילה התוססים כיום: תפילות, שיעורים, אירועים ויופיו של בית הכנסת במלוא הדרו העכשווי.",
         images: [
-            "artOtTheCovenant.png", "artOtTheCovenant1.jpg", "artOtTheCovenant2.jpg", "background.jpg",
-            "board.png", "bracha.png", "stage.jpg", "windows.png",
+            "artOtTheCovenant.webp", "artOtTheCovenant1.webp", "artOtTheCovenant2.webp", "background.webp",
+            "board.webp", "bracha.webp", "stage.webp", "windows.webp",
         ],
     },
 ];
@@ -195,7 +197,7 @@ const GalleryPage = () => {
                             {isMemory && (
                                 <motion.div className="flex flex-col md:flex-row items-center p-6 sm:p-8 mb-16 bg-white rounded-3xl shadow-xl border-4 border-yellow-300 max-w-5xl mx-auto" initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.2 }}>
                                     <div className="w-full md:w-1/2 flex justify-center p-4 order-2 md:order-1">
-                                        <motion.img src={imageMap["info.png"]} alt="תמונה המסמלת את ראשית הקהילה" className="w-full h-auto max-h-80 object-cover rounded-xl cursor-pointer shadow-lg ring-4 ring-yellow-300 ring-opacity-70" onClick={() => openModal(imageMap["info.png"])} onError={handleError} loading="eager" width="600" height="400" whileHover={{ scale: 1.02 }} />
+                                        <motion.img src={imageMap["info.webp"]} alt="תמונה המסמלת את ראשית הקהילה" className="w-full h-auto max-h-80 object-cover rounded-xl cursor-pointer shadow-lg ring-4 ring-yellow-300 ring-opacity-70" onClick={() => openModal(imageMap["info.webp"])} onError={handleError} loading="eager" width="600" height="400" whileHover={{ scale: 1.02 }} />
                                     </div>
                                     <div className="w-full md:w-1/2 md:pr-8 text-center md:text-right mt-4 md:mt-0 order-1 md:order-2">
                                         <h3 className="text-2xl font-bold text-yellow-800 mb-3 flex items-center justify-center md:justify-end">
@@ -209,9 +211,9 @@ const GalleryPage = () => {
                             )}
 
                             <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 w-full" variants={{ visible: { transition: { staggerChildren: 0.03 } }, hidden: { transition: { staggerChildren: 0.03, staggerDirection: -1 } } }} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
-                                {category.images.filter(imageKey => isMemory ? imageKey !== "info.png" : true).map((imageKey, imgIndex) => {
+                                {category.images.filter(imageKey => isMemory ? imageKey !== "info.webp" : true).map((imageKey, imgIndex) => {
                                     const imagePath = imageMap[imageKey];
-                                    const totalImages = category.images.filter(k => isMemory ? k !== "info.png" : true).length;
+                                    const totalImages = category.images.filter(k => isMemory ? k !== "info.webp" : true).length;
                                     const isLastImage = imgIndex === totalImages - 1;
                                     const isOddNumberOfImages = totalImages % 2 !== 0;
 

@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 
 // נתיבים לתמונות ישירות מתיקיית ה-public
 const imageUrls = {
-    stage: "/images/stage.jpg",
-    ark: "/images/artOtTheCovenant.png",
+    stage: "/images/entarance_old1.webp",
+    ark: "/images/inMiddleOfBuild9.webp",
 };
 
 const HistorySection = () => {
