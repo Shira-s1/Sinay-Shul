@@ -106,7 +106,7 @@ const BottomSection = () => {
 
             {/* === Footer === */}
             <div className="text-center text-xs sm:text-sm text-gray-400 mt-8 sm:mt-10 pb-3 border-t border-gray-800 pt-4">
-                <p>© {new Date().getFullYear()} shirasportes@gmail.com | כל הזכויות שמורות</p>
+                <p>© {new Date().getFullYear()} @gmail.com | כל הזכויות שמורות</p>
             </div>
         </section>
     );
