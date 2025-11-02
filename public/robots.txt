@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sinay-shul.vercel.app/sitemap.xml
